@@ -70,4 +70,3 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.wo.relativenumber = true -- relative line numbers!
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]]) -- map Esc in terminal mode to terminal exit
