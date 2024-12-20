@@ -678,7 +678,8 @@ require('lazy').setup({
             },
             python = {
               analysis = {
-                typeCheckingMode = 'strict',
+                typeCheckingMode = 'standard',
+                reportMissingTypeStubs = false,
               },
             },
           },
