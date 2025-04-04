@@ -5,8 +5,8 @@ local function set_terminal_keymaps()
 end
 
 local function set_terminal_options()
-  vim.opt.number = false
-  vim.opt.relativenumber = false
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
 end
 
 local function term_open_callback()
