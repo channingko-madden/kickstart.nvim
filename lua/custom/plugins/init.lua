@@ -2,4 +2,19 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+
+    {
+      'tpope/vim-fugitive',
+      config = function() end,
+    },
+    {
+      'mechatroner/rainbow_csv',
+      config = function() end,
+      ft = {
+        'csv',
+      },
+    },
+  },
+}
