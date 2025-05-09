@@ -4,15 +4,13 @@
 
 -- Generic IDE stuff
 -- --Callback function for FileType auto command
-local function fileTypeCallback()
+local function cppTypeCallback()
   vim.api.nvim_set_option_value('colorcolumn', '100', {})
   vim.api.nvim_command [[
     set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-    set smartindent
     set tw=99
     set showmatch
     set nofoldenable
-    set comments=sl:/*,mb:\ *,elx:\ */
     ]]
 end
 
@@ -45,12 +43,12 @@ local idegrp = vim.api.nvim_create_augroup('ide_stuff', { clear = true })
 
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
   pattern = { '*.ino', '*.pde', '*.c', '*.xbm', '*.cc', '*.h', '*.hpp', '*.cpp' },
-  command = 'set filetype=cpp',
+  callback = cppTypeCallback,
   group = idegrp,
 })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'cpp', 'rust' },
-  callback = fileTypeCallback,
+  callback = cppTypeCallback,
   group = idegrp,
 })
 vim.api.nvim_create_autocmd('FileType', {

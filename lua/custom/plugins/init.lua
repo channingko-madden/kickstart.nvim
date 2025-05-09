@@ -4,17 +4,14 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-
-    {
-      'tpope/vim-fugitive',
-      config = function() end,
-    },
-    {
-      'mechatroner/rainbow_csv',
-      config = function() end,
-      ft = {
-        'csv',
-      },
+    'tpope/vim-fugitive',
+    config = function() end,
+  },
+  {
+    'mechatroner/rainbow_csv',
+    config = function() end,
+    ft = {
+      'csv',
     },
   },
 }
