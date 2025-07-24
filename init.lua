@@ -159,7 +159,7 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+vim.o.scrolloff = 20
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -673,15 +673,23 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        pyright = {
+        basedpyright = {
           settings = {
-            pyright = {
-              disableOrganizeImports = true,
-            },
-            python = {
+            basedpyright = {
               analysis = {
-                typeCheckingMode = 'standard',
-                reportMissingTypeStubs = false,
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = 'recommended',
+                diagnosticMode = 'openFilesOnly',
+                autoSearchPath = true,
+                inlayHints = {
+                  callArgumentNames = true,
+                },
+                diagnosticSeverityOverrides = {
+                  reportMissingTypeStubs = false,
+                  reportUnknownArgumentType = false,
+                  reportUnusedImport = false, -- ruff
+                  reportUnknownMemberType = false,
+                },
               },
             },
           },
@@ -730,22 +738,16 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        automatic_enable = vim.tbl_keys(servers or {}),
       }
+
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      for server_name, config in pairs(servers) do
+        vim.lsp.config(server_name, config)
+      end
     end,
   },
 
