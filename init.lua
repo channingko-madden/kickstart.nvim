@@ -689,6 +689,8 @@ require('lazy').setup({
                   reportUnknownArgumentType = false,
                   reportUnusedImport = false, -- ruff
                   reportUnknownMemberType = false,
+                  reportExplicitAny = false,
+                  reportAny = false,
                 },
               },
             },
