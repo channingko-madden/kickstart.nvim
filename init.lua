@@ -905,7 +905,9 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       require('solarized-osaka').setup {
-        day_brightness = 0.5,
+        day_brightness = 0.3,
+        terminal_colors = true,
+        transparent = true,
       }
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
